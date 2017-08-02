@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <GLFW/glfw3.h>
+#include "config.h"
 
-char title[] = "C Graphics";
-int width = 640;
-int height = 480;
 
 int main() {
   if (!glfwInit()) {
@@ -11,7 +9,7 @@ int main() {
     return 1;
   }
 
-  GLFWwindow* window = glfwCreateWindow(width, height, title, 0, 0);
+  GLFWwindow *window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE, 0, 0);
 
   if (!window) {
     printf("window failed");
