@@ -2,9 +2,19 @@
 #include <GLFW/glfw3.h>
 #include "config.h"
 
+int on = 0;
 
-int main() {
-  if (!glfwInit()) {
+void newRender() {
+  int value = on > 0 ? 255 : 0;
+  glClearColor(value, value, value, 1);
+  glClear(GL_COLOR_BUFFER_BIT);
+  on = on > 0 ? 0: 1;
+}
+
+int createDisplay() {
+  int initialised = glfwInit();
+
+  if (!initialised) {
     printf("glfwinit failed");
     return 1;
   }
@@ -26,11 +36,15 @@ int main() {
   while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
 
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    newRender();
 
     glfwSwapBuffers(window);
   }
 
+  return 0;
+}
+
+int main() {
+  createDisplay();
   return 0;
 }
