@@ -8,7 +8,8 @@ SUCCESS_TEXT="\033[0;32m"
 DEFAULT_TEXT="\033[0m"
 
 rm -f "${OUTPUT_FILE}"
-gcc "${ENTRY_FILE}" -o "${ROOT_DIR}/build/main" -lglfw -framework OpenGL
+# @TODO: Work out how to include a directory. -I?
+gcc "${ENTRY_FILE}" -o "${ROOT_DIR}/build/main" -lglfw -framework OpenGL "${ROOT_DIR}/source/display.cpp"
 
 if [ $? -eq 0 ]; then
   DATE=`date +%H:%M:%S`
