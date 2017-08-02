@@ -7,6 +7,7 @@ ERROR_TEXT="\033[0;31m"
 SUCCESS_TEXT="\033[0;32m"
 DEFAULT_TEXT="\033[0m"
 
+rm -f "${OUTPUT_FILE}"
 gcc "${ENTRY_FILE}" -o "${ROOT_DIR}/build/main" -lglfw -framework OpenGL
 
 if [ $? -eq 0 ]; then
