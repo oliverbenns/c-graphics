@@ -1,4 +1,9 @@
 # !/bin/bash
+#
+# This isn't being used right now. Apparently it's literally impossible
+# to build with a shell and just use xcode to debug. So use the xcode project
+# over this.
+# https://www.youtube.com/watch?v=lTmM3Y8SMOM
 
 ROOT_DIR="$(dirname "$0")/../.."
 ENTRY_FILE="${ROOT_DIR}/source/main.cpp"
