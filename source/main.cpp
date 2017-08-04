@@ -12,6 +12,13 @@ void render() {
 }
 
 int main() {
-  createDisplay(render);
+  Display display;
+
+  initDisplay(&display);
+
+  display.render = render;
+
+  showDisplay(&display);
+
   return 0;
 }
