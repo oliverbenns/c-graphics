@@ -28,10 +28,12 @@ int initDisplay(Display *display) {
     return 1;
   }
 
-  glfwGetFramebufferSize(display->window, &display->width, &display->height);
-
+  // Make Window Context the main one on current thread.
   glfwMakeContextCurrent(display->window);
 
+  // Tell OpenGL the size of the rendering Window. Which is the size of the Window.
+  // It might be good to hardcode this based on WINDOW_WIDTH + WINDOW_HEIGHT for now. Would prevent glfwGetFramebufferSize call.
+  glfwGetFramebufferSize(display->window, &display->width, &display->height);
   glViewport(0, 0, display->width, display->height);
 
   return 0;
