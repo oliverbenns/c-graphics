@@ -12,4 +12,4 @@ struct Display {
 
 int initDisplay(Display *display);
 
-void showDisplay(Display *display);
+int showDisplay(Display *display);

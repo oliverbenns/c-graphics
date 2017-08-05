@@ -15,6 +15,7 @@ int initDisplay(Display *display) {
 
   if (!display->window) {
     printf("window failed");
+    glfwTerminate();
     return 1;
   }
 
@@ -27,7 +28,7 @@ int initDisplay(Display *display) {
   return 0;
 }
 
-void showDisplay(Display *display) {
+int showDisplay(Display *display) {
   while (!glfwWindowShouldClose(display->window)) {
     glfwPollEvents();
 
@@ -37,4 +38,8 @@ void showDisplay(Display *display) {
 
     glfwSwapBuffers(display->window);
   }
+
+  glfwTerminate();
+
+  return 0;
 }
