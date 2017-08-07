@@ -1,28 +1,36 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "file_system.h"
-// https://stackoverflow.com/questions/174531/easiest-way-to-get-files-contents-in-c
-char * getFile() {
-  printf("fleName");
-  char * buffer = 0;
-  long length;
 
-  FILE * file = fopen (fileName, "rb");
+// Returns length in bytes.
+long getFileSize(FILE *file) {
+  long size;
 
-  if (file) {
-    fseek (file, 0, SEEK_END);
-    length = ftell(f);
-    fseek (file, 0, SEEK_SET);
-    buffer = malloc(length);
-    if (buffer) {
-      fread(buffer, 1, length, file);
-    }
+  fseek(file, 0, SEEK_END); // seek to end of file
+  size = ftell(file); // get current file pointer
+  rewind(file); // go back to beginning of file
 
-    fclose (file);
+  return size;
+}
+
+char * readFile(const char *fileName) {
+  FILE * file = fopen(fileName, "r");
+
+  if (!file) {
+    fprintf(stderr,"ERROR: couldn't open file\n");
   }
 
-  if (buffer) {
-    // start to process your data / extract strings here...
-  }
+  long size = getFileSize(file);
+
+  // @TODO: How will I remember to free this?
+  // https://www.eskimo.com/~scs/cclass/int/sx5.html
+  char * buffer = (char*)malloc(size + 1);
+
+  fread(buffer, 1, size, file);
+
+  fclose(file);
+  buffer[size] = '\0';
 
   return buffer;
 }

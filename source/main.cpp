@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <GLFW/glfw3.h>
 #include <OpenGL/gl3.h>
 #include "display.h"
+#include "file_system.h"
 
 float vertices[] = {
   -0.5f, -0.5f, 0.0f,
@@ -38,32 +40,24 @@ int main() {
   // VERTEX SHADER
 
   // GLSL language.
-  const char *vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "}\0";
+  char * vertexShaderSource = readFile("shaders/vertex.vert");
 
   unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
   // Compile and attach GLSL commands to shader object ID.
   glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
   glCompileShader(vertexShader);
+  free(vertexShaderSource);
 
   // FRAGMENT SHADER
-  const char *fragmentShaderSource = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "}\n\0";
+  char * fragmentShaderSource = readFile("shaders/fragment.frag");
 
   unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
   // Compile and attach fragment shader, same proces as vertex.
   glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
   glCompileShader(fragmentShader);
+  free(fragmentShaderSource);
 
   // Link the 2 shaders and activate the shader program result.
   unsigned int shaderProgram = glCreateProgram();
