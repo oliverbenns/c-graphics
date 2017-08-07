@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <OpenGL/gl3.h>
 #include "display.h"
-#include "file_system.h"
+#include "shader.h"
 
 float vertices[] = {
   -0.5f, -0.5f, 0.0f,
@@ -37,27 +37,9 @@ int main() {
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
-  // VERTEX SHADER
-
-  // GLSL language.
-  char * vertexShaderSource = readFile("shaders/vertex.vert");
-
-  unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-  // Compile and attach GLSL commands to shader object ID.
-  glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-  glCompileShader(vertexShader);
-  free(vertexShaderSource);
-
-  // FRAGMENT SHADER
-  char * fragmentShaderSource = readFile("shaders/fragment.frag");
-
-  unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-  // Compile and attach fragment shader, same proces as vertex.
-  glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-  glCompileShader(fragmentShader);
-  free(fragmentShaderSource);
+  // Create the shaders needed.
+  unsigned int vertexShader = createShader("vertex", GL_VERTEX_SHADER);
+  unsigned int fragmentShader = createShader("fragment", GL_FRAGMENT_SHADER);
 
   // Link the 2 shaders and activate the shader program result.
   unsigned int shaderProgram = glCreateProgram();
