@@ -11,6 +11,7 @@
 		A73EEC6A1F33328D0073BB71 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A73EEC691F33328D0073BB71 /* libglfw.3.2.dylib */; };
 		A76A4EEC1F377EDC00E4B420 /* file_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76A4EEA1F377EDC00E4B420 /* file_system.cpp */; };
 		A76A4EF21F38C7FA00E4B420 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76A4EF01F38C7FA00E4B420 /* shader.cpp */; };
+		A76A4EF51F3A291000E4B420 /* image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76A4EF31F3A291000E4B420 /* image.cpp */; };
 		A778F26E1F3334EB0056D09A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73EEC621F33310B0073BB71 /* main.cpp */; };
 		A778F2701F3334F80056D09A /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73EEC601F33310B0073BB71 /* display.cpp */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,8 @@
 		A76A4EEB1F377EDC00E4B420 /* file_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_system.h; sourceTree = "<group>"; };
 		A76A4EF01F38C7FA00E4B420 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		A76A4EF11F38C7FA00E4B420 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
+		A76A4EF31F3A291000E4B420 /* image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = image.cpp; sourceTree = "<group>"; };
+		A76A4EF41F3A291000E4B420 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +69,8 @@
 		A73EEC5E1F33310B0073BB71 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				A76A4EF31F3A291000E4B420 /* image.cpp */,
+				A76A4EF41F3A291000E4B420 /* image.h */,
 				A76A4EF01F38C7FA00E4B420 /* shader.cpp */,
 				A76A4EF11F38C7FA00E4B420 /* shader.h */,
 				A76A4EEA1F377EDC00E4B420 /* file_system.cpp */,
@@ -146,6 +151,7 @@
 			files = (
 				A778F2701F3334F80056D09A /* display.cpp in Sources */,
 				A76A4EEC1F377EDC00E4B420 /* file_system.cpp in Sources */,
+				A76A4EF51F3A291000E4B420 /* image.cpp in Sources */,
 				A76A4EF21F38C7FA00E4B420 /* shader.cpp in Sources */,
 				A778F26E1F3334EB0056D09A /* main.cpp in Sources */,
 			);
