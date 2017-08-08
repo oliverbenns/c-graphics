@@ -1,3 +1,5 @@
+#include <OpenGL/gl3.h>
+
 struct Shader {
   unsigned int id;
   GLenum type;
