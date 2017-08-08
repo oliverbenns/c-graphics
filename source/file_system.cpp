@@ -14,21 +14,21 @@ long getFileSize(FILE *file) {
   return size;
 }
 
-char * createUri(const char * path, const char * fileName, const char * extension) {
+char * createPath(FileLocation location) {
   char * uri;
 
   // Allocate memory for the new string. +1 is for null terminator
-  uri = (char*)malloc(strlen(path) + strlen(fileName) + strlen(extension) + 1);
+  uri = (char*)malloc(strlen(location.path) + strlen(location.fileName) + strlen(location.extension) + 1);
 
-  strcpy(uri, path);
-  strcat(uri, fileName);
-  strcat(uri, extension);
+  strcpy(uri, location.path);
+  strcat(uri, location.fileName);
+  strcat(uri, location.extension);
 
   return uri;
 }
 
-char * readFile(const char *fileName) {
-  FILE * file = fopen(fileName, "r");
+char * readFile(const char *uri) {
+  FILE * file = fopen(uri, "r");
 
   if (!file) {
     fprintf(stderr,"ERROR: couldn't open file\n");
@@ -46,4 +46,13 @@ char * readFile(const char *fileName) {
   buffer[size] = '\0';
 
   return buffer;
+}
+
+char * readFileFl(FileLocation location) {
+  char * path = createPath(location);
+  char * contents = readFile(path);
+
+  free(path);
+
+  return contents;
 }

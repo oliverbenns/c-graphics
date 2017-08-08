@@ -1,3 +1,11 @@
-char * readFile(const char * fileName);
+struct FileLocation {
+  const char * path;
+  const char * fileName;
+  const char * extension;
+};
 
-char * createUri(const char * path, const char * fileName, const char * extension);
+char * readFile(const char * uri);
+
+char * readFileFl(FileLocation location);
+
+char * createPath(FileLocation location);

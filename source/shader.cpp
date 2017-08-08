@@ -5,22 +5,26 @@
 #include "file_system.h"
 #include "shader.h"
 
-unsigned int createShader(const char * fileName, GLenum shaderType) {
-  unsigned int vertexShader = glCreateShader(shaderType);
+Shader createShader(const char * fileName, GLenum shaderType) {
+  Shader shader;
+  shader.id = glCreateShader(shaderType);
+  shader.type = shaderType;
 
   // Only 2 types of enums so this is ok.
-  const char * extension = shaderType == GL_VERTEX_SHADER ? ".vert" : ".frag";
+  const char * extension = shader.type == GL_VERTEX_SHADER ? ".vert" : ".frag";
 
-  // @TODO: Function overload this?
-  char * uri = createUri("shaders/", fileName, extension);
-  char * vertexShaderSource = readFile(uri);
+  FileLocation fileLocation;
+  fileLocation.path = "shaders/";
+  fileLocation.fileName = fileName;
+  fileLocation.extension = extension;
+
+  char * vertexShaderSource = readFileFl(fileLocation);
 
   // Compile and attach GLSL commands to shader object ID.
-  glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-  glCompileShader(vertexShader);
+  glShaderSource(shader.id, 1, &vertexShaderSource, NULL);
+  glCompileShader(shader.id);
 
-  free(uri);
   free(vertexShaderSource);
 
-  return vertexShader;
+  return shader;
 }
