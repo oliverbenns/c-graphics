@@ -11,7 +11,7 @@
 #include "file_system.h"
 #include "image.h"
 
-char * decodeImage(const char * imageData);
+// char * decodeImage(const char * imageData);
 
 char * loadImage(const char * fileName) {
   FileLocation fileLocation;
@@ -29,7 +29,7 @@ Image createImage(const char * fileName) {
 
   char * data = loadImage(fileName);
 
-  char * decodedData = decodeImage(data);
+  // char * decodedData = decodeImage(data);
 
   free(data);
 
