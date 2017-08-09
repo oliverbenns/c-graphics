@@ -4,7 +4,7 @@
 #include <OpenGL/gl3.h>
 #include "display.h"
 #include "shader.h"
-#include <math.h>
+#include "image.h"
 
 // float vertices[] = {
 //   // positions         // colors
@@ -30,6 +30,8 @@ int main() {
   Display display;
 
   initDisplay(&display);
+
+  Image image = createImage("box");
 
   // Create Vertex Buffer Object
   unsigned int VBO;
