@@ -18,7 +18,7 @@ Shader createShader(const char * fileName, GLenum shaderType) {
   fileLocation.fileName = fileName;
   fileLocation.extension = extension;
 
-  char * vertexShaderSource = readFileFl(fileLocation);
+  char * vertexShaderSource = readFileFl(fileLocation, STANDARD_READ_TYPE);
 
   // Compile and attach GLSL commands to shader object ID.
   glShaderSource(shader.id, 1, &vertexShaderSource, NULL);

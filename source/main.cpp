@@ -4,7 +4,8 @@
 #include <OpenGL/gl3.h>
 #include "display.h"
 #include "shader.h"
-#include "image.h"
+// #include "image.h"
+#include "texture.h"
 
 // float vertices[] = {
 //   // positions         // colors
@@ -15,11 +16,11 @@
 // };
 
 float vertices[] = {
-   // positions       // colors
-   0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // top right
-   0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom right
-  -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-  -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f   // top left
+   // positions       // colors         // Texture positions
+   0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
+   0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
+  -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
+  -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f // top left
 };
 unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
@@ -31,7 +32,7 @@ int main() {
 
   initDisplay(&display);
 
-  Image image = createImage("box");
+//  Image image = createImage("box");
 
   // Create Vertex Buffer Object
   unsigned int VBO;
@@ -65,12 +66,15 @@ int main() {
   // glEnableVertexAttribArray(0);
 
   // position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
   // color attribute
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3* sizeof(float)));
   glEnableVertexAttribArray(1);
+
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+  glEnableVertexAttribArray(2);
 
   // Create the shaders needed.
   Shader vertexShader = createShader("vertex", GL_VERTEX_SHADER);
@@ -84,6 +88,15 @@ int main() {
 
   // Set current active shader program.
   glUseProgram(shaderProgram);
+
+
+  // Texture
+  Texture texture = createTexture("box");
+
+  //
+//  int width;
+//  int height;
+  // GLuint texture = loadTexture("images/box.png", &width, &height);
 
 
   // display.render = render;
@@ -101,6 +114,7 @@ int main() {
       glUseProgram(shaderProgram);
 
       glBindVertexArray(VAO);
+      glBindTexture(GL_TEXTURE_2D, texture.id);
       // Draw the triangle
       // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
       // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
