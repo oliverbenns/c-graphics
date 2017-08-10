@@ -11,6 +11,7 @@ Texture createTexture(const char * fileName) {
 
   char * uri = createUri("images/", fileName, ".jpg");
 
+  stbi_set_flip_vertically_on_load(1);
   unsigned char * data = stbi_load(uri, &texture.width, &texture.height, &texture.channelCount, 0);
 
   if (!data) {
