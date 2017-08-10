@@ -4,16 +4,8 @@
 #include <OpenGL/gl3.h>
 #include "display.h"
 #include "shader.h"
-// #include "image.h"
 #include "texture.h"
-
-// float vertices[] = {
-//   // positions         // colors
-//    0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-//   -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-//    0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f,    // top
-//    0.0f,  -0.5f, 0.0f, 0.0f, 0.0f, 1.0f    // bottom
-// };
+#include "box.h"
 
 float vertices[] = {
    // positions       // colors         // Texture positions
@@ -23,16 +15,14 @@ float vertices[] = {
   -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f // top left
 };
 unsigned int indices[] = {  // note that we start from 0!
-    0, 1, 3,   // first triangle
-    1, 2, 3    // second triangle
+  0, 1, 3,   // first triangle
+  1, 2, 3    // second triangle
 };
 
 int main() {
   Display display;
 
   initDisplay(&display);
-
-//  Image image = createImage("box");
 
   // Create Vertex Buffer Object
   unsigned int VBO;
@@ -62,9 +52,6 @@ int main() {
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   // Tells the GPU how the vertex data is structured and how to interpret it.
-  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  // glEnableVertexAttribArray(0);
-
   // position attribute
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
@@ -89,15 +76,10 @@ int main() {
   // Set current active shader program.
   glUseProgram(shaderProgram);
 
+  glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+  glUniform1i(glGetUniformLocation(shaderProgram, "texture2"), 1);
 
-  // Texture
-  Texture texture = createTexture("box");
-
-  //
-//  int width;
-//  int height;
-  // GLuint texture = loadTexture("images/box.png", &width, &height);
-
+  Box box = createBox();
 
   // display.render = render;
 
@@ -114,15 +96,15 @@ int main() {
       glUseProgram(shaderProgram);
 
       glBindVertexArray(VAO);
-      glBindTexture(GL_TEXTURE_2D, texture.id);
-      // Draw the triangle
-      // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-      // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, box.texture.id);
+      glActiveTexture(GL_TEXTURE1);
+      glBindTexture(GL_TEXTURE_2D, box.texture2.id);
+
+      // Draw the element
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-      // glBindVertexArray(VAO);
-      // glDrawArrays(GL_TRIANGLES, 0, 3);
     // }
 
     glfwSwapBuffers(display.window);

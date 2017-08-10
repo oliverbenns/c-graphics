@@ -4,11 +4,14 @@
 #include <OpenGL/gl3.h>
 #include "stb_image.h"
 #include "texture.h"
+#include "file_system.h"
 
 Texture createTexture(const char * fileName) {
   Texture texture;
 
-  unsigned char * data = stbi_load("images/container.jpg", &texture.width, &texture.height, &texture.channelCount, 0);
+  char * uri = createUri("images/", fileName, ".jpg");
+
+  unsigned char * data = stbi_load(uri, &texture.width, &texture.height, &texture.channelCount, 0);
 
   if (!data) {
     printf("Failed to load texture");
@@ -26,6 +29,7 @@ Texture createTexture(const char * fileName) {
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture.width, texture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
   glGenerateMipmap(GL_TEXTURE_2D);
 
+  free(uri);
   stbi_image_free(data);
 
   return texture;

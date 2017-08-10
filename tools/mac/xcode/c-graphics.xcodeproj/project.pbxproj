@@ -12,6 +12,7 @@
 		A76A4EEC1F377EDC00E4B420 /* file_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76A4EEA1F377EDC00E4B420 /* file_system.cpp */; };
 		A76A4EF21F38C7FA00E4B420 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76A4EF01F38C7FA00E4B420 /* shader.cpp */; };
 		A76A4EF81F3B497700E4B420 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76A4EF61F3B497700E4B420 /* texture.cpp */; };
+		A76A4EFB1F3C594400E4B420 /* box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76A4EF91F3C594400E4B420 /* box.cpp */; };
 		A778F26E1F3334EB0056D09A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73EEC621F33310B0073BB71 /* main.cpp */; };
 		A778F2701F3334F80056D09A /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73EEC601F33310B0073BB71 /* display.cpp */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,8 @@
 		A76A4EF11F38C7FA00E4B420 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 		A76A4EF61F3B497700E4B420 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
 		A76A4EF71F3B497700E4B420 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
+		A76A4EF91F3C594400E4B420 /* box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = box.cpp; sourceTree = "<group>"; };
+		A76A4EFA1F3C594400E4B420 /* box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,8 @@
 		A73EEC5E1F33310B0073BB71 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				A76A4EF91F3C594400E4B420 /* box.cpp */,
+				A76A4EFA1F3C594400E4B420 /* box.h */,
 				A76A4EF61F3B497700E4B420 /* texture.cpp */,
 				A76A4EF71F3B497700E4B420 /* texture.h */,
 				A76A4EF01F38C7FA00E4B420 /* shader.cpp */,
@@ -152,6 +157,7 @@
 				A778F2701F3334F80056D09A /* display.cpp in Sources */,
 				A76A4EEC1F377EDC00E4B420 /* file_system.cpp in Sources */,
 				A76A4EF81F3B497700E4B420 /* texture.cpp in Sources */,
+				A76A4EFB1F3C594400E4B420 /* box.cpp in Sources */,
 				A76A4EF21F38C7FA00E4B420 /* shader.cpp in Sources */,
 				A778F26E1F3334EB0056D09A /* main.cpp in Sources */,
 			);
