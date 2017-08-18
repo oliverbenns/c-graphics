@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <GLFW/glfw3.h>
 #include <OpenGL/gl3.h>
+
 #include "display.h"
 #include "shader.h"
-#include "texture.h"
 #include "box.h"
 
 float vertices[] = {
@@ -64,36 +64,24 @@ int main() {
   glEnableVertexAttribArray(2);
 
   // Create the shaders needed.
-  Shader vertexShader = createShader("vertex", GL_VERTEX_SHADER);
-  Shader fragmentShader = createShader("fragment", GL_FRAGMENT_SHADER);
-
-  // Link the 2 shaders and activate the shader program result.
-  unsigned int shaderProgram = glCreateProgram();
-  glAttachShader(shaderProgram, vertexShader.id);
-  glAttachShader(shaderProgram, fragmentShader.id);
-  glLinkProgram(shaderProgram);
+  Shader shader = createShader("vertex", "fragment");
 
   // Set current active shader program.
-  glUseProgram(shaderProgram);
+  glUseProgram(shader.id);
 
-  glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
-  glUniform1i(glGetUniformLocation(shaderProgram, "texture2"), 1);
+  glUniform1i(glGetUniformLocation(shader.id, "texture1"), 0);
+  glUniform1i(glGetUniformLocation(shader.id, "texture2"), 1);
 
   Box box = createBox();
-
-  // display.render = render;
-
-  // showDisplay(&display);
-
 
   while (!glfwWindowShouldClose(display.window)) {
       glfwPollEvents();
 
-      glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+      glClearColor(0.2f, 0.3f, 0.2f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT);
 
     // if (display->render) {
-      glUseProgram(shaderProgram);
+      useShader(shader);
 
       glBindVertexArray(VAO);
 
@@ -101,6 +89,8 @@ int main() {
       glBindTexture(GL_TEXTURE_2D, box.texture.id);
       glActiveTexture(GL_TEXTURE1);
       glBindTexture(GL_TEXTURE_2D, box.texture2.id);
+
+      renderBox(box, shader);
 
       // Draw the element
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -112,8 +102,7 @@ int main() {
 
   // As we've linked our shaders into a program, it is unneccessary to keep them.
   // Deleted from GPU memory?
-  glDeleteShader(vertexShader.id);
-  glDeleteShader(fragmentShader.id);
+  deleteShader(shader);
 
   return 0;
 }
