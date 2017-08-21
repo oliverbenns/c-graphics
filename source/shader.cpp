@@ -43,3 +43,8 @@ void deleteShader(Shader shader) {
   glDeleteShader(shader.fragment);
   glDeleteShader(shader.vertex);
 }
+
+void setShaderParam(Shader shader, char const* name, glm::mat4 matrix) {
+  int location = glGetUniformLocation(shader.id, name);
+  glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+}

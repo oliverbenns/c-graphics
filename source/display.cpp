@@ -36,6 +36,8 @@ int initDisplay(Display *display) {
   glfwGetFramebufferSize(display->window, &display->width, &display->height);
   glViewport(0, 0, display->width, display->height);
 
+  glEnable(GL_DEPTH_TEST);
+
   return 0;
 }
 
