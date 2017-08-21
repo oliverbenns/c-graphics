@@ -7,9 +7,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "box.h"
+#include "camera.h"
 #include "display.h"
 #include "shader.h"
-#include "box.h"
 
 float vertices[] = {
   // Positions          // Texture
@@ -115,57 +116,57 @@ int main() {
 
   // Create the shaders needed.
   Shader shader = createShader("vertex", "fragment");
+  Camera camera = createCamera();
 
   // Set current active shader program.
   glUseProgram(shader.id);
 
   glUniform1i(glGetUniformLocation(shader.id, "texture1"), 0);
-  // glUniform1i(glGetUniformLocation(shader.id, "texture2"), 1);
 
   Box box = createBox();
 
   while (!glfwWindowShouldClose(display.window)) {
-      glfwPollEvents();
+    glfwPollEvents();
 
-      glClearColor(0.2f, 0.3f, 0.2f, 1.0f);
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.2f, 0.3f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // if (display->render) {
-      useShader(shader);
+  // if (display->render) {
+    useShader(shader);
 
-      // To camera view
-      glm::mat4 view;
-      view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    // To camera view
+    glm::mat4 view;
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-      //To define clip space (camera settings)
-      glm::mat4 projection;
-      projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
+    //To define clip space (camera settings)
+    glm::mat4 projection;
+    projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
-      setShaderParam(shader, "view", view);
-      setShaderParam(shader, "projection", projection);
+    setShaderParam(shader, "view", view);
+    setShaderParam(shader, "projection", projection);
 
-      glBindVertexArray(VAO);
+    glBindVertexArray(VAO);
 
-      float time = (float)glfwGetTime();
+    float time = (float)glfwGetTime();
+    float angle = 20.0f;
+
+    for(unsigned int i = 0; i < 10; i++) {
+      glm::mat4 model;
+      model = glm::translate(model, cubePositions[i]);
       float angle = 20.0f;
+      model = glm::rotate(model, time * glm::radians(angle), glm::vec3(1.0f, 0.0f, 0.0f));
+      setShaderParam(shader, "model", model);
 
-      for(unsigned int i = 0; i < 10; i++) {
-        glm::mat4 model;
-        model = glm::translate(model, cubePositions[i]);
-        float angle = 20.0f;
-        model = glm::rotate(model, time * glm::radians(angle), glm::vec3(1.0f, 0.0f, 0.0f));
-        setShaderParam(shader, "model", model);
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-      }
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, box.texture.id);
 
-      glActiveTexture(GL_TEXTURE0);
-      glBindTexture(GL_TEXTURE_2D, box.texture.id);
+    // renderBox(box, shader);
 
-      // renderBox(box, shader);
-
-      // Draw the element
-    // }
+    // Draw the element
+  // }
 
     glfwSwapBuffers(display.window);
   }
