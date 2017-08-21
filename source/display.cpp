@@ -3,13 +3,15 @@
 #include "display.h"
 #include "config.h"
 
-int initDisplay(Display *display) {
-  display->initialised = glfwInit();
+Display createDisplay() {
+  Display display;
 
-  if (!display->initialised) {
-    printf("init failed");
-    return 1;
-  }
+  display.initialised = glfwInit();
+
+  // if (!display.initialised) {
+  //   printf("init failed");
+  //   return 1;
+  // }
 
   // Tell GLFW what version of OpenGL we are running.
   // @TODO: We can probably get this from openGL somehow.
@@ -20,25 +22,25 @@ int initDisplay(Display *display) {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE); // This fixes OSX, see comments: https://learnopengl.com/#!Getting-started/Hello-Window
 
-  display->window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE, 0, 0);
+  display.window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE, 0, 0);
 
-  if (!display->window) {
-    printf("window failed");
-    glfwTerminate();
-    return 1;
-  }
+  // if (!display->window) {
+  //   printf("window failed");
+  //   glfwTerminate();
+  //   return 1;
+  // }
 
   // Make Window Context the main one on current thread.
-  glfwMakeContextCurrent(display->window);
+  glfwMakeContextCurrent(display.window);
 
   // Tell OpenGL the size of the rendering Window. Which is the size of the Window.
   // It might be good to hardcode this based on WINDOW_WIDTH + WINDOW_HEIGHT for now. Would prevent glfwGetFramebufferSize call.
-  glfwGetFramebufferSize(display->window, &display->width, &display->height);
-  glViewport(0, 0, display->width, display->height);
+  glfwGetFramebufferSize(display.window, &display.width, &display.height);
+  glViewport(0, 0, display.width, display.height);
 
   glEnable(GL_DEPTH_TEST);
 
-  return 0;
+  return display;
 }
 
 int showDisplay(Display *display) {

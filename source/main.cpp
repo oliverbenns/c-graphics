@@ -75,9 +75,7 @@ unsigned int indices[] = {  // note that we start from 0!
 };
 
 int main() {
-  Display display;
-
-  initDisplay(&display);
+  Display display = createDisplay();
 
   // Create Vertex Buffer Object
   unsigned int VBO;

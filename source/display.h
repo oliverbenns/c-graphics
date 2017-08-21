@@ -12,6 +12,6 @@ struct Display {
   void (*render)(void);
 };
 
-int initDisplay(Display *display);
+Display createDisplay();
 
 int showDisplay(Display *display);
