@@ -125,22 +125,26 @@ int main() {
 
   Box box = createBox();
 
+  float deltaTime = 0.0f; // Time between current frame and last frame
+  float lastFrame = 0.0f; // Time of last frame
+
   while (!glfwWindowShouldClose(display.window)) {
     glfwPollEvents();
+
+    float currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
 
     glClearColor(0.2f, 0.3f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    moveCamera(&camera, display.window, deltaTime);
+
   // if (display->render) {
     useShader(shader);
 
-    // To camera view
-    glm::mat4 view;
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-
-    //To define clip space (camera settings)
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
+    glm::mat4 view = getWorldToViewMatrix(camera);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
     setShaderParam(shader, "view", view);
     setShaderParam(shader, "projection", projection);
