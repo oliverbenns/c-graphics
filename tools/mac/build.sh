@@ -5,7 +5,8 @@
 # over this.
 # https://www.youtube.com/watch?v=lTmM3Y8SMOM
 
-ROOT_DIR="$(dirname "$0")/../.."
+THIS_DIR="$(dirname "$0")"
+ROOT_DIR="${THIS_DIR}/../.."
 ENTRY_FILE="${ROOT_DIR}/source/main.cpp"
 OUTPUT_FILE="${ROOT_DIR}/build/main"
 ERROR_TEXT="\033[0;31m"
@@ -14,7 +15,10 @@ DEFAULT_TEXT="\033[0m"
 
 rm -f "${OUTPUT_FILE}"
 # @TODO: Work out how to include a directory. -I?
-gcc "${ENTRY_FILE}" -o "${ROOT_DIR}/build/main" -lglfw -framework OpenGL "${ROOT_DIR}/source/display.cpp"
+# gcc "${ENTRY_FILE}" -o "${ROOT_DIR}/build/main" -lglfw -framework OpenGL "${ROOT_DIR}/source/display.cpp"
+
+# Need to fix working directory for this to be used.
+xcodebuild -scheme c-graphics -project "${THIS_DIR}/xcode/c-graphics.xcodeproj" -configuration Debug
 
 if [ $? -eq 0 ]; then
   DATE=`date +%H:%M:%S`
@@ -22,3 +26,5 @@ if [ $? -eq 0 ]; then
 else
   echo "${ERROR_TEXT}Compilation failed${DEFAULT_TEXT}"
 fi
+
+./${ROOT_DIR}/build/products/Debug/c-graphics
